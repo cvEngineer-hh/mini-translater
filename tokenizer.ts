@@ -28,7 +28,8 @@ export function tokenizer(str: string): token[] {
 
     if (checks.number.test(str[i])) { 
       val += str[i];
-      if (/\s/.test(str[i + 1])) { 
+
+      if (!checks.number.test(str[i + 1])) { 
         arr.push({ type: types.number, value: val });
         val = '';
       }
@@ -41,6 +42,7 @@ export function tokenizer(str: string): token[] {
         val = '';
       }
     }
+        
     i += 1;
   }
   

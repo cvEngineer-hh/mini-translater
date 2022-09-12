@@ -24,3 +24,21 @@ test('测试语法', () => {
     { type: types.paren, value: ')'},
   ])
 })
+
+test('最终测试', () => { 
+  const code = '(add 2 (subtract 4 2))';
+  
+  const tokens = [
+    { type: types.paren, value: '('},
+    { type: types.name, value: 'add'},
+    { type: types.number, value: '2'},
+    { type: types.paren, value: '('},
+    { type: types.name, value: 'subtract'},
+    { type: types.number, value: '4'},
+    { type: types.number, value: '2'},
+    { type: types.paren, value: ')'},
+    { type: types.paren, value: ')'},
+  ]
+
+  expect(tokenizer(code)).toEqual(tokens);
+})
