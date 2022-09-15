@@ -5,12 +5,12 @@ export enum parserNodeTypes {
   CallExpression = 'callExpression',
 }
 
-interface RootNode {
+export interface RootNode {
   type: 'program',
   body: ChildrenNode[]
 }
 
-interface ChildrenNode {
+export interface ChildrenNode {
   type: parserNodeTypes,
   value: string,
   params?: ChildrenNode[]
