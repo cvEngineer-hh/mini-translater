@@ -4,8 +4,8 @@ type OptionsCb = (node: ChildrenNode | RootNode, parser: ChildrenNode | RootNode
 type optionKeys = 'program' | 'number' | 'callExpression';
 
 interface OptionItem { 
-  enter: OptionsCb,
-  exit: OptionsCb,
+  enter?: OptionsCb,
+  exit?: OptionsCb,
 }
 
 export type Options = { 
@@ -15,15 +15,15 @@ export type Options = {
 export function traverser(parser: RootNode, options: Options) {
   function deep(nodes: ChildrenNode[], parent: ChildrenNode | RootNode) { 
     nodes.forEach(node => { 
-      options[node.type]?.enter(node, parent);
+      options[node.type]?.enter?.(node, parent);
       if (node.type === parserNodeTypes.CallExpression) { 
         node.params && deep(node.params, node);
       }
-      options[node.type]?.exit(node, parent);
+      options[node.type]?.exit?.(node, parent);
     })
   }
 
-  options[parser.type]?.enter(parser, parser);
+  options[parser.type]?.enter?.(parser, parser);
   deep(parser.body, parser)
-  options[parser.type]?.enter(parser, parser);
+  options[parser.type]?.enter?.(parser, parser);
 }
