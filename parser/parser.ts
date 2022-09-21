@@ -1,6 +1,7 @@
 import { token, types } from '../tokenizer/tokenizer';
 
 export enum parserNodeTypes {
+  Program = 'program',
   Number = 'number',
   CallExpression = 'callExpression',
 }

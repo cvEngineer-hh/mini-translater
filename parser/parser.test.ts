@@ -5,7 +5,7 @@ import { parser, parserNodeTypes } from './parser';
 test('parser最终测试', () => {
   const tokens = tokenizer('(add 2 (subtract 4 2))');
   const parsers = {
-    type: 'program',
+    type: parserNodeTypes.Program,
     body: [
 
       {
@@ -33,7 +33,7 @@ test('测试number', () => {
   const tokens = tokenizer('2');
 
   expect(parser(tokens)).toEqual({
-    type: 'program',
+    type: parserNodeTypes.Program,
     body: [
       {
         type: parserNodeTypes.Number,
@@ -47,7 +47,7 @@ test('测试add', () => {
   const tokens = tokenizer('(add 2 4)');
   
   expect(parser(tokens)).toEqual({
-    type: 'program',
+    type: parserNodeTypes.Program,
     body: [
       {
         type: parserNodeTypes.CallExpression,
