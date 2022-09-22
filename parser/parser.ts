@@ -7,23 +7,25 @@ export enum parserNodeTypes {
 }
 
 export interface RootNode {
-  type: 'program',
-  body: ChildrenNode[]
+  type: parserNodeTypes.Program,
+  body: ChildrenNode[],
+  context?: any,
 }
 
 export interface ChildrenNode {
-  type: parserNodeTypes,
+  type: parserNodeTypes.Number | parserNodeTypes.CallExpression,
   value: string,
   params?: ChildrenNode[]
+  context?: any,
 }
 
 const createRootNode = (): RootNode => ({
-  type: 'program',
+  type: parserNodeTypes.Program,
   body: []
 })
 
 function createChildrenNode(token: token): ChildrenNode {
-  const type = token.type === types.name ? parserNodeTypes.CallExpression : parserNodeTypes.Number;
+  const type: ChildrenNode['type'] = token.type === types.name ? parserNodeTypes.CallExpression : parserNodeTypes.Number;
   const node = {
     type,
     value: token.value,
