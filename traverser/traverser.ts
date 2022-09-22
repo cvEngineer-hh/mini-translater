@@ -1,6 +1,6 @@
 import { RootNode, ChildrenNode, parserNodeTypes } from '../parser/parser';
 
-type OptionsCb = (node: ChildrenNode | RootNode, parser: ChildrenNode | RootNode) => void;
+type OptionsCb = (node: ChildrenNode, parser: ChildrenNode | RootNode) => void;
 type optionKeys = 'program' | 'number' | 'callExpression';
 
 interface OptionItem { 
@@ -8,8 +8,13 @@ interface OptionItem {
   exit?: OptionsCb,
 }
 
+interface OptionItem_program { 
+  enter?: (node: RootNode) => void,
+  exit?: (node: RootNode) => void,
+}
+
 export type Options = { 
-  [key in optionKeys]?: OptionItem;
+  [key in optionKeys]?: key extends 'program' ? OptionItem_program : OptionItem;
 }
 
 export function traverser(parser: RootNode, options: Options) {
@@ -23,7 +28,7 @@ export function traverser(parser: RootNode, options: Options) {
     })
   }
 
-  options[parser.type]?.enter?.(parser, parser);
+  options[parser.type]?.enter?.(parser);
   deep(parser.body, parser)
-  options[parser.type]?.enter?.(parser, parser);
+  options[parser.type]?.enter?.(parser);
 }
