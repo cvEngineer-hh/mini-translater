@@ -9,7 +9,7 @@ export enum AstTypes {
   NumberLiteral = 'NumberLiteral',
 }
 
-type AstCallExpressionNode_nested = {
+export type AstCallExpressionNode_nested = {
   type: AstTypes.CallExpression,
   callee: {
     type: AstTypes.Identifier,
